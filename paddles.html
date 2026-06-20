@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Paddles — Mike Litter Ocean Craft</title>
+<style>
+  @font-face { font-family: 'Futura'; src: url('fonts/Futura-Medium.ttf') format('truetype'); font-weight: 400 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Futura'; src: url('fonts/Futura-MediumItalic.ttf') format('truetype'); font-weight: 400 500; font-style: italic; font-display: swap; }
+  @font-face { font-family: 'Futura'; src: url('fonts/Futura-Bold.ttf') format('truetype'); font-weight: 600 800; font-style: normal; font-display: swap; }
+
+  :root {
+    --bg: #ffffff;
+    --ink: #2b2620;
+    --muted: #5b5043;
+    --accent: #b6442b;
+    --rule: #d8cfc0;
+    --card-border: #e3dccf;
+    --max: 1180px;
+    --reading: 720px;
+    --radius-lg: 22px;
+    --radius-md: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Futura', 'Futura PT', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  /* HEADER */
+  .site-header { display: flex; flex-direction: column; align-items: stretch; padding: 28px 48px 0; max-width: var(--max); margin: 0 auto; }
+  .logo { align-self: flex-start; }
+  .logo img { height: 110px; width: auto; mix-blend-mode: multiply; margin-left: -28px; display: block; }
+  .header-rule { border: 0; border-top: 1px solid var(--rule); margin: 14px 0 0; width: 100%; }
+  nav.primary { padding: 18px 0 8px; }
+  nav.primary ul { list-style: none; display: flex; gap: 34px; justify-content: flex-end; }
+  nav.primary a { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); transition: color 0.2s; }
+  nav.primary a:hover { color: var(--accent); }
+  nav.primary a.active { color: var(--accent); }
+
+  /* HERO PHOTO */
+  .pad-hero {
+    max-width: var(--max);
+    margin: 28px auto 50px;
+    padding: 0 48px;
+  }
+  .pad-hero img {
+    width: 100%;
+    aspect-ratio: 5 / 2.4;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    display: block;
+  }
+
+  /* PAGE TITLE + LEAD */
+  .pad-title {
+    max-width: var(--reading);
+    margin: 0 auto 24px;
+    padding: 0 32px;
+    text-align: center;
+  }
+  .pad-title h1 {
+    font-weight: 700;
+    font-size: clamp(22px, 2.3vw, 28px);
+    color: var(--accent);
+    letter-spacing: 0.18em;
+  }
+  .pad-title .tagline {
+    margin-top: 10px;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+  }
+
+  /* INTRO COPY — centered, narrow column */
+  .pad-intro {
+    max-width: var(--reading);
+    margin: 0 auto 70px;
+    padding: 0 32px;
+    text-align: center;
+    font-size: 15.4px;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+  .pad-intro p + p { margin-top: 1em; }
+  .pad-intro .summary { font-weight: 700; margin-top: 1.4em; }
+
+  /* PRODUCT SECTION (OC1, V1, OC6, SUP, etc.) */
+  .pad-section {
+    max-width: var(--reading);
+    margin: 0 auto 70px;
+    padding: 0 32px;
+  }
+  .pad-section h2 {
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    margin-bottom: 14px;
+  }
+  .pad-section p {
+    font-size: 15.4px;
+    line-height: 1.7;
+    color: var(--ink);
+    text-wrap: pretty;
+    hyphens: auto;
+  }
+  .pad-section p + p { margin-top: 1em; }
+
+  .pad-card {
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    margin-top: 24px;
+    padding: 32px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 380px;
+  }
+  .pad-card img {
+    max-width: 100%;
+    max-height: 380px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+  .pad-card.horizontal { min-height: 280px; }
+  .pad-card.horizontal img { max-height: 220px; }
+
+  /* Carousel placeholder dots (purely visual for now — wire up later) */
+  .pad-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .pad-dots span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #bbb4a3;
+    opacity: 0.4;
+  }
+  .pad-dots span.active { background: var(--accent); opacity: 0.85; }
+
+  /* OTHER OFFERINGS */
+  .other-offerings {
+    max-width: var(--reading);
+    margin: 60px auto 80px;
+    padding: 0 32px;
+  }
+  .other-offerings h3 {
+    text-align: center;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+  .offering {
+    margin-top: 28px;
+  }
+  .offering h4 {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    margin-bottom: 10px;
+  }
+  .offering p {
+    font-size: 15.4px;
+    line-height: 1.7;
+    color: var(--ink);
+    text-wrap: pretty;
+  }
+  .offering p + p { margin-top: 1em; }
+
+  /* CATEGORY STRIP — same as other pages */
+  .categories {
+    max-width: 880px;
+    margin: 60px auto 60px;
+    padding: 0 32px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+  }
+  .cat { text-align: center; transition: transform 0.25s ease; }
+  .cat:hover { transform: translateY(-4px); }
+  .cat-thumb { width: 110px; height: 110px; border-radius: 50%; overflow: hidden; margin: 0 auto 12px; background: #d6cab4; }
+  .cat-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .cat-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); }
+
+  /* FOOTER */
+  footer {
+    max-width: var(--max);
+    margin: 80px auto 40px;
+    padding: 30px 48px 0;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* MOBILE */
+  @media (max-width: 820px) {
+    .site-header { padding: 20px 20px 0; }
+    .logo img { height: 80px; margin-left: -18px; }
+    .header-rule { margin-top: 8px; }
+    nav.primary { padding: 12px 0 6px; }
+    nav.primary ul { flex-wrap: wrap; justify-content: center; gap: 14px 18px; }
+
+    .pad-hero { padding: 0 20px; margin: 16px auto 32px; }
+    .pad-hero img { border-radius: var(--radius-md); aspect-ratio: 5 / 3; }
+    .pad-title, .pad-intro, .pad-section, .other-offerings { padding: 0 24px; }
+    .pad-card { min-height: 300px; padding: 20px 16px; }
+    .pad-card img { max-height: 300px; }
+
+    .categories { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    footer { flex-direction: column; gap: 14px; text-align: center; padding: 30px 24px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="logo" aria-label="Mike Litter Ocean Craft — home">
+    <img src="images/logo.jpg" alt="Mike Litter Ocean Craft" />
+  </a>
+  <hr class="header-rule" />
+  <nav class="primary" aria-label="Primary">
+    <ul>
+      <li><a href="index.html#about">ABOUT</a></li>
+      <li><a href="index.html#people">PEOPLE</a></li>
+      <li><a href="index.html#workshop">WORKSHOP</a></li>
+      <li><a href="ocean-craft.html" class="active">OCEAN CRAFT</a></li>
+      <li><a href="index.html#events">EVENTS</a></li>
+      <li><a href="index.html#materials">MATERIALS</a></li>
+      <li><a href="index.html#contact">CONTACT</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="pad-hero">
+  <img src="images/paddles-hero.jpg" alt="Paddler in the water with a hand-built wooden paddle" />
+</section>
+
+<section class="pad-title">
+  <h1>PADDLES</h1>
+  <div class="tagline">Paddles with the soul of a tree.</div>
+</section>
+
+<section class="pad-intro">
+  <p>Making wooden paddles by hand is an absolute pleasure. Each paddle takes 12 hours to construct using 19 different pieces of wood. Some timbers are chosen for their strength and others for their feather-weight. The result is a strong lightweight paddle that performs as well as one made from composites. MLOC paddles are not fiberglassed and therefore benefit from the lively feel of wood's natural resiliency. When you get your first catch, I promise you'll feel the power and soul of the magnificent trees from which they were hewn.</p>
+  <p class="summary">Everything is customizable &mdash; blade face size and outline, shaft to blade angle, handle size and shape &mdash; and tuned to your stroke.</p>
+</section>
+
+<section class="pad-section">
+  <h2>OC1</h2>
+  <p>A good one-man paddle easily catches the water up front and exits cleanly out the back. It also needs to strike the perfect balance between weight, strength and stiffness. The OC1-specific blades weigh between 15oz and 18 oz depending on length, blade width, shaft circumference and timber choice. I can make them stiff for big surf runs or extremely lively for long distances in calmer water.</p>
+  <div class="pad-card"><img src="images/paddle-oc1.jpg" alt="OC1 hand-built wooden paddle" /></div>
+  <div class="pad-dots"><span class="active"></span><span></span><span></span></div>
+</section>
+
+<section class="pad-section">
+  <h2>V1</h2>
+  <p>A traditional rudderless canoe requires more from a paddle since it's the primary steering tool as well as its source of propulsion. The V1 blades tend to have more hardwood along the edge to handle contact against the side of the canoe. I also favor a "Tahitian style" rear deco blade which allows for deepwatering the blade for quick stove-rare bursts or dipping less blade in the water. The V1-specific blades weigh between 16oz and 18oz depending on length, blade width, shaft circumference and timber choice.</p>
+  <div class="pad-card"><img src="images/paddle-v1.jpg" alt="V1 hand-built wooden paddle" /></div>
+  <div class="pad-dots"><span class="active"></span><span></span><span></span></div>
+</section>
+
+<section class="pad-section">
+  <h2>OC6</h2>
+  <p>The six-man paddle is built much like the V1 paddle. It needs to be extra stout — not only in service of passing around a 400 pound canoe, but also because of the extra banging against the hull. We know we shouldn't, but it always happens!</p>
+  <div class="pad-card"><img src="images/paddle-oc6.jpg" alt="OC6 hand-built wooden paddle" /></div>
+  <div class="pad-dots"><span class="active"></span><span></span><span></span></div>
+</section>
+
+<section class="pad-section">
+  <h2>SUP</h2>
+  <p>Using a MLOC wooden SUP paddle is all about showing off. Given the long shaft and heavier timbers required to achieve the required stiffness, it is not possible to make them as light as the carbon fiber varieties. But I can get close. You may not be winning races with a MLOC Sup paddle, but you'll certainly turn heads.</p>
+  <div class="pad-card"><img src="images/paddle-sup.jpg" alt="SUP hand-built wooden paddle" /></div>
+  <div class="pad-dots"><span class="active"></span><span></span><span></span></div>
+</section>
+
+<section class="pad-section">
+  <h2>SAILING CANOE STEERING</h2>
+  <p>The modern canoe sailor joins a long history of navigators who crossed oceans with a sailing canoe paddle. With only a stout steering blade and hard-earned experience, the canoe sailor often faces unpredictable wind, seas, and current. These blades are trustworthy companions to complete epic ocean crossings. I feel like each one should have a name. Think Thor and his legendary Hammer Mjölnir or King Aurthur's Excalibur!</p>
+  <p>I have made various steering blades for my own sailing canoe adventures and recently started making blades for the Holopuni gang. Nick Beck was generous enough to share his favorite template and insights into what works. I make two models: the Holopuni style big-water blade and a slightly smaller mid-water blade based on one of Nick's personal favorites. I can send them for glassing if weight is a concern but can make them using wood only, as well.</p>
+  <div class="pad-card horizontal"><img src="images/paddle-sailing.jpg" alt="Sailing canoe steering paddles" /></div>
+  <div class="pad-dots"><span class="active"></span><span></span><span></span></div>
+</section>
+
+<section class="other-offerings">
+  <h3>Other Offerings&hellip;</h3>
+
+  <div class="offering">
+    <h4>Art</h4>
+    <p>I used to shun requests to make "wall hangers." My whole premise is that form follows function. The old Shaker proverb speaks to me: "Do not make that which is not useful, but if it is both useful and necessary, do not hesitate to make it beautiful." However, the paddle ono surfboard forms are so perfected through centuries of iteration to make them functional, that they have become into actual "eye sweet." If that means saddling a beautiful paddle or surfboard for the purpose of adorning your wall, then that function is "necessary and useful" in my mind too.</p>
+  </div>
+
+  <div class="offering">
+    <h4>Self Care</h4>
+    <p>The benefit of a forgiving paddle shaft is significant if you have shoulder issues. A stiff carbon paddle transfers the load of each stroke straight to your joints. The wooden paddle is a gentle shock absorber buffering that load. And, the load that is absorbed into the slightly flexed shaft during the stroke's catch phase is given back to you as the shaft straightens and releases the stored energy. Many of my paddle customers comment how much their all-wood paddles reduce their shoulder pain.</p>
+  </div>
+</section>
+
+<section class="categories" aria-label="Explore">
+  <a class="cat" href="ocean-craft.html"><div class="cat-thumb"><img src="images/cat-ocean-craft.jpg" alt="" /></div><div class="cat-label">Ocean Craft</div></a>
+  <a class="cat" href="index.html#workshop"><div class="cat-thumb"><img src="images/cat-workshop.jpg" alt="" /></div><div class="cat-label">Workshop</div></a>
+  <a class="cat" href="index.html#materials"><div class="cat-thumb"><img src="images/cat-materials.jpg" alt="" /></div><div class="cat-label">Materials</div></a>
+  <a class="cat" href="index.html#people"><div class="cat-thumb"><img src="images/cat-people.jpg" alt="" /></div><div class="cat-label">People</div></a>
+  <a class="cat" href="index.html#events"><div class="cat-thumb"><img src="images/cat-events.jpg" alt="" /></div><div class="cat-label">Events</div></a>
+</section>
+
+<footer>
+  <div>&copy; <span id="year"></span> MIKE LITTER OCEAN CRAFT</div>
+  <div>SAN FRANCISCO, CA</div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+</body>
+</html>
