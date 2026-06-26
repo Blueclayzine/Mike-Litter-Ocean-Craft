@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Paddles — Mike Litter Ocean Craft</title>
+<title>Body Surfing — Mike Litter Ocean Craft</title>
 <style>
   @font-face { font-family: 'Futura'; src: url('fonts/Futura-Medium.ttf') format('truetype'); font-weight: 400 500; font-style: normal; font-display: swap; }
   @font-face { font-family: 'Futura'; src: url('fonts/Futura-MediumItalic.ttf') format('truetype'); font-weight: 400 500; font-style: italic; font-display: swap; }
@@ -107,12 +107,12 @@
 
 
   /* HERO PHOTO */
-  .pad-hero {
+  .bs-hero {
     max-width: var(--max);
     margin: 28px auto 50px;
     padding: 0 48px;
   }
-  .pad-hero img {
+  .bs-hero img {
     width: 100%;
     aspect-ratio: 5 / 2.4;
     object-fit: cover;
@@ -120,66 +120,80 @@
     display: block;
   }
 
-  /* PAGE TITLE + LEAD */
-  .pad-title {
+  /* PAGE TITLE + TAGLINES */
+  .bs-title {
     max-width: var(--reading);
     margin: 0 auto 24px;
     padding: 0 32px;
     text-align: center;
   }
-  .pad-title h1 {
+  .bs-title h1 {
     font-weight: 700;
     font-size: clamp(22px, 2.3vw, 28px);
     color: var(--accent);
     letter-spacing: 0.18em;
   }
-  .pad-title .tagline {
+  .bs-title .tagline {
     margin-top: 10px;
-    color: var(--accent);
+    color: var(--ink);
     font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 0.04em;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+  }
+  .bs-title .lead {
+    margin-top: 10px;
+    color: var(--ink);
+    font-size: 14.5px;
+    line-height: 1.55;
   }
 
-  /* INTRO COPY — centered, narrow column */
-  .pad-intro {
+  /* INTRO COPY */
+  .bs-intro {
     max-width: var(--reading);
-    margin: 0 auto 70px;
+    margin: 28px auto 56px;
     padding: 0 32px;
     text-align: center;
     font-size: 15.4px;
     line-height: 1.7;
     color: var(--ink);
   }
-  .pad-intro p + p { margin-top: 1em; }
-  .pad-intro .summary { font-weight: 700; margin-top: 1.4em; }
-
-  /* PRODUCT SECTION (OC1, V1, OC6, SUP, etc.) */
-  .pad-section {
+  .bs-intro p + p { margin-top: 1em; }
+  .bs-divider {
     max-width: var(--reading);
-    margin: 0 auto 70px;
+    margin: 0 auto;
     padding: 0 32px;
   }
-  .pad-section h2 {
+  .bs-divider hr {
+    border: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* PRODUCT SECTIONS */
+  .bs-section {
+    max-width: var(--reading);
+    margin: 50px auto 30px;
+    padding: 0 32px;
+  }
+  .bs-section h2 {
     font-weight: 700;
     font-size: 14px;
     letter-spacing: 0.05em;
     color: var(--accent);
-    text-transform: uppercase;
+    text-transform: none;          /* mockup uses "Title Case" here, not all caps */
     text-decoration: underline;
     text-underline-offset: 4px;
     margin-bottom: 14px;
   }
-  .pad-section p {
+  .bs-section p {
     font-size: 15.4px;
     line-height: 1.7;
     color: var(--ink);
     text-wrap: pretty;
     hyphens: auto;
   }
-  .pad-section p + p { margin-top: 1em; }
+  .bs-section p + p { margin-top: 1em; }
 
-  .pad-card {
+  .bs-card {
     border: 1px solid var(--card-border);
     border-radius: var(--radius-md);
     margin-top: 24px;
@@ -189,68 +203,33 @@
     justify-content: center;
     min-height: 380px;
   }
-  .pad-card img {
+  .bs-card img {
     max-width: 100%;
     max-height: 380px;
     object-fit: contain;
     mix-blend-mode: multiply;
   }
-  .pad-card.horizontal { min-height: 280px; }
-  .pad-card.horizontal img { max-height: 220px; }
 
-  /* Carousel placeholder dots (purely visual for now — wire up later) */
-  .pad-dots {
+  /* Carousel dots (placeholder) */
+  .bs-dots {
     display: flex;
     justify-content: center;
     gap: 8px;
     margin-top: 14px;
   }
-  .pad-dots span {
+  .bs-dots span {
     width: 7px;
     height: 7px;
     border-radius: 50%;
     background: #bbb4a3;
     opacity: 0.4;
   }
-  .pad-dots span.active { background: var(--accent); opacity: 0.85; }
+  .bs-dots span.active { background: var(--accent); opacity: 0.85; }
 
-  /* OTHER OFFERINGS */
-  .other-offerings {
-    max-width: var(--reading);
-    margin: 60px auto 80px;
-    padding: 0 32px;
-  }
-  .other-offerings h3 {
-    text-align: center;
-    font-weight: 700;
-    font-size: 18px;
-    letter-spacing: 0.08em;
-    color: var(--ink);
-    margin-bottom: 32px;
-  }
-  .offering {
-    margin-top: 28px;
-  }
-  .offering h4 {
-    font-weight: 700;
-    font-size: 14px;
-    color: var(--ink);
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    margin-bottom: 10px;
-  }
-  .offering p {
-    font-size: 15.4px;
-    line-height: 1.7;
-    color: var(--ink);
-    text-wrap: pretty;
-  }
-  .offering p + p { margin-top: 1em; }
-
-  /* CATEGORY STRIP — same as other pages */
+  /* CATEGORY STRIP */
   .categories {
     max-width: 880px;
-    margin: 60px auto 60px;
+    margin: 70px auto 60px;
     padding: 0 32px;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -305,11 +284,11 @@
     nav.primary .has-dropdown > a::after { display: none; }
 
 
-    .pad-hero { padding: 0 20px; margin: 16px auto 32px; }
-    .pad-hero img { border-radius: var(--radius-md); aspect-ratio: 5 / 3; }
-    .pad-title, .pad-intro, .pad-section, .other-offerings { padding: 0 24px; }
-    .pad-card { min-height: 300px; padding: 20px 16px; }
-    .pad-card img { max-height: 300px; }
+    .bs-hero { padding: 0 20px; margin: 16px auto 32px; }
+    .bs-hero img { border-radius: var(--radius-md); aspect-ratio: 5 / 3; }
+    .bs-title, .bs-intro, .bs-section, .bs-divider { padding: 0 24px; }
+    .bs-card { min-height: 300px; padding: 20px 16px; }
+    .bs-card img { max-height: 300px; }
 
     .categories { grid-template-columns: repeat(2, 1fr); gap: 32px; }
     footer { flex-direction: column; gap: 14px; text-align: center; padding: 30px 24px 0; }
@@ -345,68 +324,46 @@
   </nav>
 </header>
 
-<section class="pad-hero">
-  <img src="images/paddles-hero.jpg" alt="Paddler in the water with a hand-built wooden paddle" />
+<section class="bs-hero">
+  <img src="images/bodysurfing-hero.jpg" alt="Handplane resting in shallow water on the beach" />
 </section>
 
-<section class="pad-title">
-  <h1>PADDLES</h1>
-  <div class="tagline">Paddles with the soul of a tree.</div>
+<section class="bs-title">
+  <h1>BODY SURFING</h1>
+  <div class="tagline">Wave toys for maximum fun.</div>
+  <div class="lead">For the surfer who has bodysurfing in their toolkit, blown-out, marginally surfable days are back in play.</div>
 </section>
 
-<section class="pad-intro">
-  <p>Making wooden paddles by hand is an absolute pleasure. Each paddle takes 12 hours to construct using 19 different pieces of wood. Some timbers are chosen for their strength and others for their feather-weight. The result is a strong lightweight paddle that performs as well as one made from composites. MLOC paddles are not fiberglassed and therefore benefit from the lively feel of wood's natural resiliency. When you get your first catch, I promise you'll feel the power and soul of the magnificent trees from which they were hewn.</p>
-  <p class="summary">Everything is customizable &mdash; blade face size and outline, shaft to blade angle, handle size and shape &mdash; and tuned to your stroke.</p>
+<section class="bs-intro">
+  <p>Imagine a waterperson's food pyramid. At the top you might have something epic and gear intensive like deepwater offshore sailing. In the middle there are the hard earned skills like outrigger and surfing. The foundation is the simple things we did as children: swimming, body surfing and diving. Bodysurfing is pure play, and thus, handplanes are nothing pretentious&mdash;just toys. If you don't already body surf, I recommend it for its simplicity and joy. If you do, you know what I'm talking about.</p>
 </section>
 
-<section class="pad-section">
-  <h2>OC1</h2>
-  <p>A good one-man paddle easily catches the water up front and exits cleanly out the back. It also needs to strike the perfect balance between weight, strength and stiffness. The OC1-specific blades weigh between 15oz and 18 oz depending on length, blade width, shaft circumference and timber choice. I can make them stiff for big surf runs or extremely lively for long distances in calmer water.</p>
-  <div class="pad-card"><img src="images/paddle-oc1.jpg" alt="OC1 hand-built wooden paddle" /></div>
-  <div class="pad-dots"><span class="active"></span><span></span><span></span></div>
+<div class="bs-divider"><hr /></div>
+
+<section class="bs-section">
+  <h2>Handplane</h2>
+  <p>Bodysurfing is the simplest form of surfing a wave. You don't really need anything to do it, but a handplane creates just enough lift and steerage to maneuver into tight little tubes. For the strapped versions, a reused mountain bike inner tube serves as the perfect stretchy hand strap. The unstrapped variety boasts my proprietary four finger bowling ball tech! The former model maximizes low drag while the latter maximizes minimalism and ease of switching from hand to hand when surfing a peaky beach break.</p>
+  <div class="bs-card"><img src="images/bodysurfing-handplane.jpg" alt="Wooden handplane" /></div>
+  <div class="bs-dots"><span class="active"></span><span></span><span></span></div>
 </section>
 
-<section class="pad-section">
-  <h2>V1</h2>
-  <p>A traditional rudderless canoe requires more from a paddle since it's the primary steering tool as well as its source of propulsion. The V1 blades tend to have more hardwood along the edge to handle contact against the side of the canoe. I also favor a "Tahitian style" rear deco blade which allows for deepwatering the blade for quick stove-rare bursts or dipping less blade in the water. The V1-specific blades weigh between 16oz and 18oz depending on length, blade width, shaft circumference and timber choice.</p>
-  <div class="pad-card"><img src="images/paddle-v1.jpg" alt="V1 hand-built wooden paddle" /></div>
-  <div class="pad-dots"><span class="active"></span><span></span><span></span></div>
+<section class="bs-section">
+  <h2>Turbo Lunch Trays</h2>
+  <p>The lunch tray is my personal favorite bodysurfing toy. The turbo lunch tray is an evolution of the grom-friendly plastic lunch trays that found their way into the lineup in the 1950s during the early Macdonald's era. The lunch tray-sized plane allows for a two handed grip and enough extra lift to achieve something close to boogie boarding speeds. The hand routed "alien eyes" are there for extra grip.</p>
+  <div class="bs-card"><img src="images/bodysurfing-lunchtray.jpg" alt="Wooden turbo lunch tray bodysurfing board" /></div>
+  <div class="bs-dots"><span class="active"></span><span></span><span></span></div>
 </section>
 
-<section class="pad-section">
-  <h2>OC6</h2>
-  <p>The six-man paddle is built much like the V1 paddle. It needs to be extra stout — not only in service of passing around a 400 pound canoe, but also because of the extra banging against the hull. We know we shouldn't, but it always happens!</p>
-  <div class="pad-card"><img src="images/paddle-oc6.jpg" alt="OC6 hand-built wooden paddle" /></div>
-  <div class="pad-dots"><span class="active"></span><span></span><span></span></div>
+<section class="bs-section">
+  <h2>Paipo</h2>
+  <p>The Paipo is the centuries-old predecessor of the bodyboard. The name is a shortened version of the Hawaiian phrase "pae po'o," which literally translates to "to surf headfirst." These stiff yet thin boards are wicked fast and fun.</p>
+  <div class="bs-card"><img src="images/bodysurfing-paipo.jpg" alt="Wooden paipo bodysurfing board" /></div>
+  <div class="bs-dots"><span class="active"></span><span></span><span></span></div>
 </section>
 
-<section class="pad-section">
-  <h2>SUP</h2>
-  <p>Using a MLOC wooden SUP paddle is all about showing off. Given the long shaft and heavier timbers required to achieve the required stiffness, it is not possible to make them as light as the carbon fiber varieties. But I can get close. You may not be winning races with a MLOC Sup paddle, but you'll certainly turn heads.</p>
-  <div class="pad-card"><img src="images/paddle-sup.jpg" alt="SUP hand-built wooden paddle" /></div>
-  <div class="pad-dots"><span class="active"></span><span></span><span></span></div>
-</section>
-
-<section class="pad-section">
-  <h2>SAILING CANOE STEERING</h2>
-  <p>The modern canoe sailor joins a long history of navigators who crossed oceans with a sailing canoe paddle. With only a stout steering blade and hard-earned experience, the canoe sailor often faces unpredictable wind, seas, and current. These blades are trustworthy companions to complete epic ocean crossings. I feel like each one should have a name. Think Thor and his legendary Hammer Mjölnir or King Aurthur's Excalibur!</p>
-  <p>I have made various steering blades for my own sailing canoe adventures and recently started making blades for the Holopuni gang. Nick Beck was generous enough to share his favorite template and insights into what works. I make two models: the Holopuni style big-water blade and a slightly smaller mid-water blade based on one of Nick's personal favorites. I can send them for glassing if weight is a concern but can make them using wood only, as well.</p>
-  <div class="pad-card horizontal"><img src="images/paddle-sailing.jpg" alt="Sailing canoe steering paddles" /></div>
-  <div class="pad-dots"><span class="active"></span><span></span><span></span></div>
-</section>
-
-<section class="other-offerings">
-  <h3>Other Offerings&hellip;</h3>
-
-  <div class="offering">
-    <h4>Art</h4>
-    <p>I used to shun requests to make "wall hangers." My whole premise is that form follows function. The old Shaker proverb speaks to me: "Do not make that which is not useful, but if it is both useful and necessary, do not hesitate to make it beautiful." However, the paddle ono surfboard forms are so perfected through centuries of iteration to make them functional, that they have become into actual "eye sweet." If that means saddling a beautiful paddle or surfboard for the purpose of adorning your wall, then that function is "necessary and useful" in my mind too.</p>
-  </div>
-
-  <div class="offering">
-    <h4>Self Care</h4>
-    <p>The benefit of a forgiving paddle shaft is significant if you have shoulder issues. A stiff carbon paddle transfers the load of each stroke straight to your joints. The wooden paddle is a gentle shock absorber buffering that load. And, the load that is absorbed into the slightly flexed shaft during the stroke's catch phase is given back to you as the shaft straightens and releases the stored energy. Many of my paddle customers comment how much their all-wood paddles reduce their shoulder pain.</p>
-  </div>
+<section class="bs-section">
+  <h2>Alaia</h2>
+  <p>The alaia was the daily driver for pre-colonial Hawaiians and represents the first stand up surfboard design. The Hawaiian royalty also surfed a larger version called an Olo, which could reach over twenty feet long. Just like the Paipo, the Alaia are finless and an inch thick or less. They are meant to be turned using the highly foiled rail. Alaia surfing is notoriously difficult but, once mastered, offers unparalleled frictionless speed.</p>
 </section>
 
 <section class="categories" aria-label="Explore">
