@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Alaia — Mike Litter Ocean Craft</title>
+<style>
+  @font-face { font-family: 'Futura'; src: url('fonts/Futura-Medium.ttf') format('truetype'); font-weight: 400 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Futura'; src: url('fonts/Futura-MediumItalic.ttf') format('truetype'); font-weight: 400 500; font-style: italic; font-display: swap; }
+  @font-face { font-family: 'Futura'; src: url('fonts/Futura-Bold.ttf') format('truetype'); font-weight: 600 800; font-style: normal; font-display: swap; }
+
+  :root {
+    --bg: #ffffff;
+    --ink: #2b2620;
+    --muted: #5b5043;
+    --accent: #b6442b;
+    --rule: #d8cfc0;
+    --card-border: #e3dccf;
+    --max: 1180px;
+    --reading: 900px;
+    --radius-lg: 22px;
+    --radius-md: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Futura', 'Futura PT', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  /* HEADER */
+  .site-header { display: flex; flex-direction: column; align-items: stretch; padding: 28px 48px 0; max-width: var(--max); margin: 0 auto; }
+  .logo { align-self: flex-start; }
+  .logo img {
+    height: 110px; width: auto; max-width: none;
+    object-fit: contain; aspect-ratio: 500 / 281;
+    mix-blend-mode: multiply; margin-left: -28px;
+    display: block; flex-shrink: 0;
+  }
+  .header-rule { border: 0; border-top: 1px solid var(--rule); margin: 14px 0 0; width: 100%; }
+  nav.primary { padding: 18px 0 8px; }
+  nav.primary ul { list-style: none; display: flex; gap: 34px; justify-content: flex-end; }
+  nav.primary a { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); transition: color 0.2s; }
+  nav.primary a:hover { color: var(--accent); }
+  nav.primary a.active { color: var(--accent); }
+
+  /* DROPDOWN */
+  nav.primary .has-dropdown { position: relative; }
+  nav.primary .has-dropdown::after { content: ""; position: absolute; top: 100%; left: 0; right: 0; height: 14px; }
+  nav.primary .dropdown {
+    position: absolute; top: 100%; right: 0; margin-top: 10px;
+    background: var(--bg); border: 1px solid var(--rule); border-radius: 6px;
+    padding: 6px 0; min-width: 200px; list-style: none;
+    display: flex; flex-direction: column; gap: 0;
+    opacity: 0; visibility: hidden; transform: translateY(-6px);
+    transition: opacity 0.18s ease, visibility 0.18s ease, transform 0.18s ease;
+    z-index: 100; box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+  }
+  nav.primary .has-dropdown:hover > .dropdown,
+  nav.primary .has-dropdown:focus-within > .dropdown {
+    opacity: 1; visibility: visible; transform: translateY(0);
+  }
+  nav.primary .dropdown li { padding: 0; }
+  nav.primary .dropdown a {
+    display: block; padding: 10px 20px; font-size: 10px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--ink); white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+  nav.primary .dropdown a:hover { background: rgba(182, 68, 43, 0.06); color: var(--accent); }
+  nav.primary .has-dropdown > a::after { content: " \25BE"; font-size: 9px; opacity: 0.55; margin-left: 2px; }
+
+  /* PAGE TITLE */
+  .p-title {
+    max-width: var(--reading);
+    margin: 30px auto 24px;
+    padding: 0 48px;
+  }
+  .p-title h1 {
+    font-weight: 800;
+    font-size: clamp(38px, 5vw, 60px);
+    color: var(--accent);
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+
+  /* CAROUSEL */
+  .carousel {
+    max-width: var(--reading);
+    margin: 0 auto 32px;
+    padding: 0 48px;
+  }
+  .carousel-frame {
+    position: relative;
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    padding: 24px;
+    overflow: hidden;
+  }
+  .carousel-viewport {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 16px;
+  }
+  .carousel-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  .carousel-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .carousel-slide img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* Arrow buttons */
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.85);
+    color: var(--accent);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s ease, background 0.15s ease;
+    z-index: 2;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .carousel-frame:hover .carousel-arrow { opacity: 1; }
+  .carousel-arrow:hover { background: #fff; }
+  .carousel-arrow.prev { left: 40px; }
+  .carousel-arrow.next { right: 40px; }
+
+  /* Dots */
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+  }
+  .carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid var(--accent);
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s ease;
+  }
+  .carousel-dot.active { background: var(--accent); }
+
+  /* BODY COPY */
+  .p-copy {
+    max-width: var(--reading);
+    margin: 0 auto 40px;
+    padding: 0 48px;
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--ink);
+    text-align: left;
+    text-wrap: pretty;
+    hyphens: auto;
+  }
+  .p-copy p + p { margin-top: 1em; }
+
+  /* LIGHTBOX (click to expand carousel image) */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 12, 8, 0.92);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.22s ease;
+    padding: 40px;
+  }
+  .lightbox.open { display: flex; opacity: 1; }
+  .lightbox img {
+    max-width: 92vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    user-select: none;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    width: 42px;
+    height: 42px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lightbox-close:hover { background: rgba(255,255,255,0.22); }
+  .lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px;
+    height: 52px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease;
+  }
+  .lightbox-arrow:hover { background: rgba(255,255,255,0.24); }
+  .lightbox-arrow.prev { left: 20px; }
+  .lightbox-arrow.next { right: 20px; }
+  .lightbox-counter {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.7);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+  }
+
+  /* Carousel image cursor cue */
+  .carousel-slide img { cursor: zoom-in; }
+
+  @media (max-width: 820px) {
+    .lightbox { padding: 20px; }
+    .lightbox-arrow { width: 40px; height: 40px; font-size: 18px; }
+    .lightbox-arrow.prev { left: 8px; }
+    .lightbox-arrow.next { right: 8px; }
+    .lightbox-close { top: 12px; right: 12px; width: 36px; height: 36px; }
+  }
+
+    /* RETURN BUTTON */
+  .return-btn-wrap {
+    max-width: var(--reading);
+    margin: 0 auto 40px;
+    padding: 0 48px;
+    text-align: left;
+  }
+  .return-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border: 1px solid var(--accent);
+    border-radius: 50px;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .return-btn:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+  .return-btn .arrow {
+    font-size: 16px;
+    line-height: 1;
+    transition: transform 0.2s ease;
+  }
+  .return-btn:hover .arrow { transform: translateX(-3px); }
+
+    /* CATEGORY STRIP */
+  .categories {
+    max-width: 880px;
+    margin: 60px auto 60px;
+    padding: 0 32px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+  }
+  .cat { text-align: center; transition: transform 0.25s ease; }
+  .cat:hover { transform: translateY(-4px); }
+  .cat-thumb { width: 110px; height: 110px; border-radius: 50%; overflow: hidden; margin: 0 auto 12px; background: #d6cab4; }
+  .cat-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .cat-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); }
+
+  /* FOOTER */
+  footer {
+    max-width: var(--max); margin: 80px auto 40px; padding: 30px 48px 0;
+    border-top: 1px solid var(--rule);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
+  }
+
+  /* MOBILE */
+  @media (max-width: 820px) {
+    .site-header { padding: 20px 20px 0; }
+    .logo img { height: 80px; margin-left: -18px; width: auto; max-width: none; aspect-ratio: 500 / 281; flex-shrink: 0; }
+    .header-rule { margin-top: 8px; }
+    nav.primary { padding: 12px 0 6px; }
+    nav.primary ul { flex-wrap: wrap; justify-content: center; gap: 14px 18px; }
+
+    nav.primary .dropdown {
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      margin-top: 8px; background: var(--bg); border: 1px solid var(--rule);
+      border-radius: 6px; padding: 6px 0; min-width: 180px;
+      flex-direction: column; gap: 0; opacity: 0; visibility: hidden;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.10); z-index: 100;
+      transition: opacity 0.18s ease, visibility 0.18s ease;
+    }
+    nav.primary .has-dropdown.open > .dropdown { opacity: 1; visibility: visible; }
+    nav.primary .dropdown a { padding: 10px 20px; opacity: 1; font-size: 10px; letter-spacing: 0.22em; }
+    nav.primary .has-dropdown::after { display: none; }
+    nav.primary .has-dropdown > a::after { display: inline; transition: transform 0.2s ease; }
+    nav.primary .has-dropdown.open > a::after { transform: rotate(180deg); display: inline-block; }
+
+    .p-title, .carousel, .p-copy { padding: 0 24px; }
+    .p-copy { font-size: 17px; }
+    .carousel-frame { padding: 14px; border-radius: 18px; }
+    .carousel-viewport { aspect-ratio: 4 / 3; border-radius: 10px; }
+    .carousel-arrow { opacity: 1; width: 30px; height: 30px; font-size: 16px; }
+    .carousel-arrow.prev { left: 8px; }
+    .carousel-arrow.next { right: 8px; }
+    .categories { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    footer { flex-direction: column; gap: 14px; text-align: center; padding: 30px 24px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="logo" aria-label="Mike Litter Ocean Craft — home">
+    <img src="images/logo.jpg" alt="Mike Litter Ocean Craft" />
+  </a>
+  <hr class="header-rule" />
+  <nav class="primary" aria-label="Primary">
+    <ul>
+      <li><a href="index.html#about">ABOUT</a></li>
+      <li><a href="index.html#people">PEOPLE</a></li>
+      <li><a href="index.html#workshop">WORKSHOP</a></li>
+      <li class="has-dropdown">
+        <a href="ocean-craft.html" class="active">OCEAN CRAFT</a>
+        <ul class="dropdown" aria-label="Ocean Craft sections">
+          <li><a href="paddles.html">PADDLES</a></li>
+          <li><a href="body-surfing.html">BODY SURFING</a></li>
+          <li><a href="innovations.html">INNOVATIONS</a></li>
+          <li><a href="surfboards.html">SURFBOARDS</a></li>
+          <li><a href="canoes.html">CANOES</a></li>
+        </ul>
+      </li>
+      <li><a href="index.html#events">EVENTS</a></li>
+      <li><a href="index.html#materials">MATERIALS</a></li>
+      <li><a href="index.html#contact">CONTACT</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="p-title">
+  <h1>ALAIA</h1>
+</section>
+
+<section class="carousel">
+  <div class="carousel-frame">
+    <button class="carousel-arrow prev" aria-label="Previous image">&#10094;</button>
+    <button class="carousel-arrow next" aria-label="Next image">&#10095;</button>
+    <div class="carousel-viewport">
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="images/bodysurfing-hero.jpg" alt="Alaia" /></div>
+      </div>
+    </div>
+    <div class="carousel-dots" role="tablist">
+      <button class="carousel-dot active" aria-label="Slide 1"></button>
+    </div>
+  </div>
+</section>
+
+<section class="p-copy">
+  <p>The alaia was the daily driver for pre-colonial Hawaiians and represents the first stand up surfboard design. The Hawaiian royalty also surfed a larger version called an Olo, which could reach over twenty feet long. Just like the Paipo, the Alaia are finless and an inch thick or less. They are meant to be turned using the highly foiled rail. Alaia surfing is notoriously difficult but, once mastered, offers unparalleled frictionless speed.</p>
+</section>
+
+<section class="return-btn-wrap">
+  <a href="body-surfing.html" class="return-btn">
+    <span class="arrow">&#8592;</span> Return to Body Surfing
+  </a>
+</section>
+
+<section class="categories" aria-label="Explore">
+  <a class="cat" href="ocean-craft.html"><div class="cat-thumb"><img src="images/cat-ocean-craft.jpg" alt="" /></div><div class="cat-label">Ocean Craft</div></a>
+  <a class="cat" href="index.html#workshop"><div class="cat-thumb"><img src="images/cat-workshop.jpg" alt="" /></div><div class="cat-label">Workshop</div></a>
+  <a class="cat" href="index.html#materials"><div class="cat-thumb"><img src="images/cat-materials.jpg" alt="" /></div><div class="cat-label">Materials</div></a>
+  <a class="cat" href="index.html#people"><div class="cat-thumb"><img src="images/cat-people.jpg" alt="" /></div><div class="cat-label">People</div></a>
+  <a class="cat" href="index.html#events"><div class="cat-thumb"><img src="images/cat-events.jpg" alt="" /></div><div class="cat-label">Events</div></a>
+</section>
+
+<footer>
+  <div>&copy; <span id="year"></span> MIKE LITTER OCEAN CRAFT</div>
+  <div>SAN FRANCISCO, CA</div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+<script>
+// Carousel
+(function() {
+  const track = document.querySelector('.carousel-track');
+  const slides = document.querySelectorAll('.carousel-slide');
+  const dots = document.querySelectorAll('.carousel-dot');
+  const prev = document.querySelector('.carousel-arrow.prev');
+  const next = document.querySelector('.carousel-arrow.next');
+  if (!track || slides.length < 2) return;
+  let idx = 0;
+
+  function goTo(i) {
+    idx = (i + slides.length) % slides.length;
+    track.style.transform = `translateX(${-100 * idx}%)`;
+    dots.forEach((d, di) => d.classList.toggle('active', di === idx));
+  }
+
+  prev.addEventListener('click', () => goTo(idx - 1));
+  next.addEventListener('click', () => goTo(idx + 1));
+  dots.forEach((d, di) => d.addEventListener('click', () => goTo(di)));
+
+  // Keyboard support
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft') goTo(idx - 1);
+    if (e.key === 'ArrowRight') goTo(idx + 1);
+  });
+
+  // Touch swipe on mobile
+  let startX = 0, dx = 0, isDown = false;
+  const vp = document.querySelector('.carousel-viewport');
+  vp.addEventListener('touchstart', e => { startX = e.touches[0].clientX; dx = 0; isDown = true; }, {passive: true});
+  vp.addEventListener('touchmove',  e => { if (isDown) dx = e.touches[0].clientX - startX; }, {passive: true});
+  vp.addEventListener('touchend',   () => {
+    if (!isDown) return;
+    isDown = false;
+    if (Math.abs(dx) > 40) goTo(idx + (dx < 0 ? 1 : -1));
+  });
+})();
+</script>
+
+<script>
+// Tap-to-toggle dropdown for OCEAN CRAFT on mobile
+(function() {
+  const parent = document.querySelector('nav.primary .has-dropdown');
+  if (!parent) return;
+  const link = parent.querySelector(':scope > a');
+  link.addEventListener('click', function(e) {
+    if (window.innerWidth <= 820) { e.preventDefault(); parent.classList.toggle('open'); }
+  });
+  document.addEventListener('click', function(e) {
+    if (!parent.contains(e.target) && parent.classList.contains('open')) parent.classList.remove('open');
+  });
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 820) parent.classList.remove('open');
+  });
+})();
+</script>
+
+<div class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lightbox-close" aria-label="Close">&times;</button>
+  <button class="lightbox-arrow prev" aria-label="Previous image">&#10094;</button>
+  <button class="lightbox-arrow next" aria-label="Next image">&#10095;</button>
+  <img src="" alt="" />
+  <div class="lightbox-counter"><span class="lb-current">1</span> / <span class="lb-total">1</span></div>
+</div>
+
+
+<script>
+// LIGHTBOX
+(function() {
+  const box = document.querySelector('.lightbox');
+  if (!box) return;
+  const img = box.querySelector('img');
+  const closeBtn = box.querySelector('.lightbox-close');
+  const prevBtn = box.querySelector('.lightbox-arrow.prev');
+  const nextBtn = box.querySelector('.lightbox-arrow.next');
+  const cur = box.querySelector('.lb-current');
+  const total = box.querySelector('.lb-total');
+
+  const slides = Array.from(document.querySelectorAll('.carousel-slide img'));
+  if (!slides.length) return;
+
+  let idx = 0;
+  total.textContent = slides.length;
+
+  function open(i) {
+    idx = i;
+    img.src = slides[idx].src;
+    img.alt = slides[idx].alt || '';
+    cur.textContent = idx + 1;
+    box.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    box.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function go(delta) {
+    idx = (idx + delta + slides.length) % slides.length;
+    img.src = slides[idx].src;
+    img.alt = slides[idx].alt || '';
+    cur.textContent = idx + 1;
+  }
+
+  slides.forEach((el, i) => el.addEventListener('click', () => open(i)));
+  closeBtn.addEventListener('click', close);
+  prevBtn.addEventListener('click', () => go(-1));
+  nextBtn.addEventListener('click', () => go(1));
+
+  // Click backdrop (not the image) to close
+  box.addEventListener('click', e => {
+    if (e.target === box) close();
+  });
+
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    if (!box.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') go(-1);
+    if (e.key === 'ArrowRight') go(1);
+  });
+
+  // Swipe on mobile
+  let sx = 0, dx = 0, down = false;
+  img.addEventListener('touchstart', e => { sx = e.touches[0].clientX; dx = 0; down = true; }, {passive: true});
+  img.addEventListener('touchmove',  e => { if (down) dx = e.touches[0].clientX - sx; }, {passive: true});
+  img.addEventListener('touchend',   () => {
+    if (!down) return; down = false;
+    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+  });
+})();
+</script>
+</body>
+</html>
