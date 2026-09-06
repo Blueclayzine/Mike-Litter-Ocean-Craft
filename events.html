@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Events — Mike Litter Ocean Craft</title>
+<style>
+  @font-face { font-family: 'Futura'; src: url('fonts/Futura-Medium.ttf') format('truetype'); font-weight: 400 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Futura'; src: url('fonts/Futura-MediumItalic.ttf') format('truetype'); font-weight: 400 500; font-style: italic; font-display: swap; }
+  @font-face { font-family: 'Futura'; src: url('fonts/Futura-Bold.ttf') format('truetype'); font-weight: 600 800; font-style: normal; font-display: swap; }
+
+  :root {
+    --bg: #ffffff;
+    --ink: #2b2620;
+    --muted: #5b5043;
+    --accent: #b6442b;
+    --rule: #d8cfc0;
+    --card-border: #e3dccf;
+    --max: 1180px;
+    --radius-md: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Futura', 'Futura PT', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  /* HEADER */
+  .site-header { display: flex; flex-direction: column; align-items: stretch; padding: 28px 48px 0; max-width: var(--max); margin: 0 auto; }
+  .logo { align-self: flex-start; }
+  .logo img { height: 110px; width: auto; max-width: none; object-fit: contain; aspect-ratio: 500 / 281; mix-blend-mode: multiply; margin-left: -28px; display: block; flex-shrink: 0; }
+  .header-rule { border: 0; border-top: 1px solid var(--rule); margin: 14px 0 0; width: 100%; }
+  nav.primary { padding: 18px 0 8px; }
+  nav.primary ul { list-style: none; display: flex; gap: 34px; justify-content: flex-end; }
+  nav.primary a { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); transition: color 0.2s; }
+  nav.primary a:hover { color: var(--accent); }
+  nav.primary a.active { color: var(--accent); }
+  nav.primary .has-dropdown { position: relative; }
+  nav.primary .has-dropdown::after { content: ""; position: absolute; top: 100%; left: 0; right: 0; height: 14px; }
+  nav.primary .dropdown { position: absolute; top: 100%; right: 0; margin-top: 10px; background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; padding: 6px 0; min-width: 200px; list-style: none; display: flex; flex-direction: column; gap: 0; opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity 0.18s ease, visibility 0.18s ease, transform 0.18s ease; z-index: 100; box-shadow: 0 10px 28px rgba(0,0,0,0.08); }
+  nav.primary .has-dropdown:hover > .dropdown, nav.primary .has-dropdown:focus-within > .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+  nav.primary .dropdown li { padding: 0; }
+  nav.primary .dropdown a { display: block; padding: 10px 20px; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); white-space: nowrap; transition: background 0.15s, color 0.15s; }
+  nav.primary .dropdown a:hover { background: rgba(182, 68, 43, 0.06); color: var(--accent); }
+  nav.primary .has-dropdown > a::after { content: " \25BE"; font-size: 9px; opacity: 0.55; margin-left: 2px; }
+
+  /* PAGE TITLE */
+  .p-title {
+    max-width: var(--max);
+    margin: 40px auto 8px;
+    padding: 0 48px;
+  }
+  .p-title h1 {
+    font-weight: 700;
+    font-size: clamp(38px, 5vw, 56px);
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+  .p-tagline {
+    max-width: var(--max);
+    margin: 0 auto 40px;
+    padding: 0 48px;
+    color: var(--accent);
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: 0.02em;
+  }
+
+  /* EVENTS GRID */
+  .events {
+    max-width: var(--max);
+    margin: 0 auto 60px;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px 40px;
+  }
+  .event { display: flex; flex-direction: column; }
+  .event .poster {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: #f4ede1;
+    aspect-ratio: 4 / 5;
+    cursor: zoom-in;
+    transition: transform 0.35s ease, box-shadow 0.25s ease;
+  }
+  .event .poster:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.08); }
+  .event .poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .event h2 {
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 18px 0 8px;
+  }
+  .event .meta {
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  .event .meta .date {
+    display: block;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+  .event .meta .venue { display: block; color: var(--muted); }
+
+  .events-empty {
+    max-width: var(--max);
+    margin: 40px auto 60px;
+    padding: 40px 48px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 15px;
+    letter-spacing: 0.05em;
+    border: 1px dashed var(--rule);
+    border-radius: var(--radius-md);
+  }
+
+  /* LIGHTBOX */
+  .lightbox { position: fixed; inset: 0; background: rgba(15, 12, 8, 0.92); display: none; align-items: center; justify-content: center; z-index: 1000; opacity: 0; transition: opacity 0.22s ease; padding: 40px; }
+  .lightbox.open { display: flex; opacity: 1; }
+  .lightbox img { max-width: 92vw; max-height: 90vh; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
+  .lightbox-close { position: absolute; top: 20px; right: 24px; width: 42px; height: 42px; border: 0; border-radius: 50%; background: rgba(255,255,255,0.12); color: #fff; font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .lightbox-close:hover { background: rgba(255,255,255,0.22); }
+  .lightbox-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border: 0; border-radius: 50%; background: rgba(255,255,255,0.14); color: #fff; font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .lightbox-arrow.prev { left: 20px; }
+  .lightbox-arrow.next { right: 20px; }
+  .lightbox-arrow:hover { background: rgba(255,255,255,0.24); }
+  .lightbox-counter { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.7); font-size: 11px; letter-spacing: 0.22em; }
+
+  /* CATEGORY STRIP */
+  .categories { max-width: 880px; margin: 60px auto 60px; padding: 0 32px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; }
+  .cat { text-align: center; transition: transform 0.25s ease; }
+  .cat:hover { transform: translateY(-4px); }
+  .cat-thumb { width: 110px; height: 110px; border-radius: 50%; overflow: hidden; margin: 0 auto 12px; background: #d6cab4; }
+  .cat-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .cat-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); }
+
+  /* FOOTER */
+  footer { max-width: var(--max); margin: 80px auto 40px; padding: 30px 48px 0; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    .events { grid-template-columns: repeat(2, 1fr); gap: 36px 24px; }
+  }
+  @media (max-width: 600px) {
+    .events { grid-template-columns: 1fr; gap: 36px; padding: 0 24px; }
+    .p-title, .p-tagline { padding: 0 24px; }
+  }
+  @media (max-width: 820px) {
+    .site-header { padding: 20px 20px 0; }
+    .logo img { height: 80px; margin-left: -18px; }
+    .header-rule { margin-top: 8px; }
+    nav.primary { padding: 12px 0 6px; }
+    nav.primary ul { flex-wrap: wrap; justify-content: center; gap: 14px 18px; }
+    nav.primary .dropdown { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 8px; background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; padding: 6px 0; min-width: 180px; flex-direction: column; gap: 0; opacity: 0; visibility: hidden; box-shadow: 0 10px 28px rgba(0,0,0,0.10); z-index: 100; transition: opacity 0.18s ease, visibility 0.18s ease; }
+    nav.primary .has-dropdown.open > .dropdown { opacity: 1; visibility: visible; }
+    nav.primary .dropdown a { padding: 10px 20px; opacity: 1; font-size: 10px; letter-spacing: 0.22em; }
+    nav.primary .has-dropdown::after { display: none; }
+    nav.primary .has-dropdown > a::after { display: inline; transition: transform 0.2s ease; }
+    nav.primary .has-dropdown.open > a::after { transform: rotate(180deg); display: inline-block; }
+    .categories { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    footer { flex-direction: column; gap: 14px; text-align: center; padding: 30px 24px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="logo" aria-label="Mike Litter Ocean Craft — home">
+    <img src="images/logo.jpg" alt="Mike Litter Ocean Craft" />
+  </a>
+  <hr class="header-rule" />
+  <nav class="primary" aria-label="Primary">
+    <ul>
+      <li><a href="about.html">ABOUT</a></li>
+      <li><a href="people.html">PEOPLE</a></li>
+      <li><a href="workshop.html">WORKSHOP</a></li>
+      <li class="has-dropdown">
+        <a href="ocean-craft.html">OCEAN CRAFT</a>
+        <ul class="dropdown" aria-label="Ocean Craft sections">
+          <li><a href="paddles.html">PADDLES</a></li>
+          <li><a href="body-surfing.html">BODY SURFING</a></li>
+          <li><a href="innovations.html">INNOVATIONS</a></li>
+          <li><a href="surfboards.html">SURFBOARDS</a></li>
+          <li><a href="canoes.html">CANOES</a></li>
+        </ul>
+      </li>
+      <li><a href="events.html" class="active">EVENTS</a></li>
+      <li><a href="index.html#materials">MATERIALS</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="p-title">
+  <h1>EVENTS</h1>
+</section>
+
+<div class="p-tagline">Come get in the water with us.</div>
+
+<section class="events" aria-label="Upcoming events">
+
+  <article class="event">
+    <div class="poster">
+      <img src="images/event-hardly-strictly.jpg" alt="Hardly Strictly Handplanes event poster" />
+    </div>
+    <h2>Hardly Strictly Handplanes</h2>
+    <div class="meta">
+      <span class="date">Sat, Sep 20 &middot; 9&ndash;11am</span>
+      <span class="venue">Base of Irving St, Ocean Beach &middot; San Francisco</span>
+      <p style="margin-top:8px;">Body surfing expression session with handplane demos + tasty grub.</p>
+    </div>
+  </article>
+
+</section>
+
+<section class="categories" aria-label="Explore">
+  <a class="cat" href="ocean-craft.html"><div class="cat-thumb"><img src="images/cat-ocean-craft.jpg" alt="" /></div><div class="cat-label">Ocean Craft</div></a>
+  <a class="cat" href="workshop.html"><div class="cat-thumb"><img src="images/cat-workshop.jpg" alt="" /></div><div class="cat-label">Workshop</div></a>
+  <a class="cat" href="index.html#materials"><div class="cat-thumb"><img src="images/cat-materials.jpg" alt="" /></div><div class="cat-label">Materials</div></a>
+  <a class="cat" href="people.html"><div class="cat-thumb"><img src="images/cat-people.jpg" alt="" /></div><div class="cat-label">People</div></a>
+  <a class="cat" href="events.html"><div class="cat-thumb"><img src="images/cat-events.jpg" alt="" /></div><div class="cat-label">Events</div></a>
+</section>
+
+<footer>
+  <div>&copy; <span id="year"></span> MIKE LITTER OCEAN CRAFT</div>
+  <div>SAN FRANCISCO, CA</div>
+</footer>
+
+<div class="lightbox" role="dialog" aria-modal="true" aria-label="Event poster">
+  <button class="lightbox-close" aria-label="Close">&times;</button>
+  <button class="lightbox-arrow prev" aria-label="Previous">&#10094;</button>
+  <button class="lightbox-arrow next" aria-label="Next">&#10095;</button>
+  <img src="" alt="" />
+  <div class="lightbox-counter"><span class="lb-current">1</span> / <span class="lb-total">1</span></div>
+</div>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+<script>
+// Lightbox for event posters
+(function() {
+  const box = document.querySelector('.lightbox');
+  if (!box) return;
+  const img = box.querySelector('img');
+  const closeBtn = box.querySelector('.lightbox-close');
+  const prevBtn = box.querySelector('.lightbox-arrow.prev');
+  const nextBtn = box.querySelector('.lightbox-arrow.next');
+  const cur = box.querySelector('.lb-current');
+  const total = box.querySelector('.lb-total');
+  const slides = Array.from(document.querySelectorAll('.event .poster img'));
+  if (!slides.length) return;
+  let idx = 0;
+  total.textContent = slides.length;
+  function open(i) { idx = i; img.src = slides[idx].src; img.alt = slides[idx].alt || ''; cur.textContent = idx + 1; box.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function close() { box.classList.remove('open'); document.body.style.overflow = ''; }
+  function go(delta) { idx = (idx + delta + slides.length) % slides.length; img.src = slides[idx].src; img.alt = slides[idx].alt || ''; cur.textContent = idx + 1; }
+  slides.forEach((el, i) => el.addEventListener('click', () => open(i)));
+  closeBtn.addEventListener('click', close);
+  prevBtn.addEventListener('click', () => go(-1));
+  nextBtn.addEventListener('click', () => go(1));
+  box.addEventListener('click', e => { if (e.target === box) close(); });
+  document.addEventListener('keydown', e => {
+    if (!box.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') go(-1);
+    if (e.key === 'ArrowRight') go(1);
+  });
+})();
+</script>
+
+<script>
+// Mobile dropdown toggle
+(function() {
+  const parent = document.querySelector('nav.primary .has-dropdown');
+  if (!parent) return;
+  const link = parent.querySelector(':scope > a');
+  link.addEventListener('click', function(e) {
+    if (window.innerWidth <= 820) { e.preventDefault(); parent.classList.toggle('open'); }
+  });
+  document.addEventListener('click', function(e) {
+    if (!parent.contains(e.target) && parent.classList.contains('open')) parent.classList.remove('open');
+  });
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 820) parent.classList.remove('open');
+  });
+})();
+</script>
+
+</body>
+</html>
