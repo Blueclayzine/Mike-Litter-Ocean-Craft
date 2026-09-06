@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Materials — Mike Litter Ocean Craft</title>
+<style>
+  @font-face { font-family: 'Futura'; src: url('fonts/Futura-Medium.ttf') format('truetype'); font-weight: 400 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Futura'; src: url('fonts/Futura-MediumItalic.ttf') format('truetype'); font-weight: 400 500; font-style: italic; font-display: swap; }
+  @font-face { font-family: 'Futura'; src: url('fonts/Futura-Bold.ttf') format('truetype'); font-weight: 600 800; font-style: normal; font-display: swap; }
+
+  :root {
+    --bg: #ffffff;
+    --ink: #2b2620;
+    --muted: #5b5043;
+    --accent: #b6442b;
+    --rule: #d8cfc0;
+    --card-border: #e3dccf;
+    --max: 1180px;
+    --reading: 780px;
+    --radius-lg: 22px;
+    --radius-md: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Futura', 'Futura PT', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  /* HEADER */
+  .site-header { display: flex; flex-direction: column; align-items: stretch; padding: 28px 48px 0; max-width: var(--max); margin: 0 auto; }
+  .logo { align-self: flex-start; }
+  .logo img { height: 110px; width: auto; max-width: none; object-fit: contain; aspect-ratio: 500 / 281; mix-blend-mode: multiply; margin-left: -28px; display: block; flex-shrink: 0; }
+  .header-rule { border: 0; border-top: 1px solid var(--rule); margin: 14px 0 0; width: 100%; }
+  nav.primary { padding: 18px 0 8px; }
+  nav.primary ul { list-style: none; display: flex; gap: 34px; justify-content: flex-end; }
+  nav.primary a { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); transition: color 0.2s; }
+  nav.primary a:hover { color: var(--accent); }
+  nav.primary a.active { color: var(--accent); }
+  nav.primary .has-dropdown { position: relative; }
+  nav.primary .has-dropdown::after { content: ""; position: absolute; top: 100%; left: 0; right: 0; height: 14px; }
+  nav.primary .dropdown { position: absolute; top: 100%; right: 0; margin-top: 10px; background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; padding: 6px 0; min-width: 200px; list-style: none; display: flex; flex-direction: column; gap: 0; opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity 0.18s ease, visibility 0.18s ease, transform 0.18s ease; z-index: 100; box-shadow: 0 10px 28px rgba(0,0,0,0.08); }
+  nav.primary .has-dropdown:hover > .dropdown, nav.primary .has-dropdown:focus-within > .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+  nav.primary .dropdown li { padding: 0; }
+  nav.primary .dropdown a { display: block; padding: 10px 20px; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); white-space: nowrap; transition: background 0.15s, color 0.15s; }
+  nav.primary .dropdown a:hover { background: rgba(182, 68, 43, 0.06); color: var(--accent); }
+  nav.primary .has-dropdown > a::after { content: " \25BE"; font-size: 9px; opacity: 0.55; margin-left: 2px; }
+
+  /* HERO */
+  .m-hero {
+    max-width: var(--max);
+    margin: 28px auto 46px;
+    padding: 0 48px;
+  }
+  .m-hero img {
+    width: 100%;
+    aspect-ratio: 5 / 2.4;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    display: block;
+    background: #f4ede1;
+  }
+
+  /* TITLES + TAGLINES */
+  .m-title {
+    max-width: var(--reading);
+    margin: 0 auto 12px;
+    padding: 0 32px;
+    text-align: center;
+  }
+  .m-title h1 {
+    font-weight: 700;
+    font-size: clamp(28px, 3.4vw, 44px);
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+  .m-tagline {
+    max-width: var(--reading);
+    margin: 0 auto 34px;
+    padding: 0 32px;
+    text-align: center;
+    color: var(--accent);
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: 0.02em;
+  }
+
+  /* SECTION HEADS for TOOLS */
+  .m-section-title {
+    max-width: var(--reading);
+    margin: 40px auto 10px;
+    padding: 0 32px;
+    text-align: center;
+  }
+  .m-section-title h2 {
+    font-weight: 700;
+    font-size: clamp(26px, 3vw, 38px);
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  /* BODY COPY */
+  .m-copy {
+    max-width: var(--reading);
+    margin: 0 auto 50px;
+    padding: 0 32px;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--ink);
+    text-wrap: pretty;
+    hyphens: auto;
+  }
+  .m-copy p + p { margin-top: 1.2em; }
+
+  /* CAROUSEL — same style as OC1/V1 */
+  .carousel {
+    max-width: var(--reading);
+    margin: 0 auto 60px;
+    padding: 0 32px;
+  }
+  .carousel-frame {
+    position: relative;
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    padding: 20px;
+    overflow: hidden;
+  }
+  .carousel-viewport { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 14px; }
+  .carousel-track { display: flex; height: 100%; transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1); }
+  .carousel-slide { flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+  .carousel-slide img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; cursor: zoom-in; }
+  .carousel-slide .placeholder-note { color: var(--muted); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; text-align: center; padding: 20px; background: #f8f5ee; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; border-radius: 10px; }
+  .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border: 0; border-radius: 50%; background: rgba(255,255,255,0.85); color: var(--accent); font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s ease, background 0.15s ease; z-index: 2; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+  .carousel-frame:hover .carousel-arrow { opacity: 1; }
+  .carousel-arrow:hover { background: #fff; }
+  .carousel-arrow.prev { left: 30px; }
+  .carousel-arrow.next { right: 30px; }
+  .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 14px; }
+  .carousel-dot { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--accent); background: transparent; cursor: pointer; padding: 0; transition: background 0.2s ease; }
+  .carousel-dot.active { background: var(--accent); }
+
+  /* LIGHTBOX */
+  .lightbox { position: fixed; inset: 0; background: rgba(15, 12, 8, 0.92); display: none; align-items: center; justify-content: center; z-index: 1000; opacity: 0; transition: opacity 0.22s ease; padding: 40px; }
+  .lightbox.open { display: flex; opacity: 1; }
+  .lightbox img { max-width: 92vw; max-height: 90vh; border-radius: 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
+  .lightbox-close { position: absolute; top: 20px; right: 24px; width: 42px; height: 42px; border: 0; border-radius: 50%; background: rgba(255,255,255,0.12); color: #fff; font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .lightbox-close:hover { background: rgba(255,255,255,0.22); }
+  .lightbox-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border: 0; border-radius: 50%; background: rgba(255,255,255,0.14); color: #fff; font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .lightbox-arrow.prev { left: 20px; }
+  .lightbox-arrow.next { right: 20px; }
+  .lightbox-arrow:hover { background: rgba(255,255,255,0.24); }
+  .lightbox-counter { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.7); font-size: 11px; letter-spacing: 0.22em; }
+
+  /* CATEGORY STRIP */
+  .categories { max-width: 880px; margin: 60px auto 60px; padding: 0 32px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; }
+  .cat { text-align: center; transition: transform 0.25s ease; }
+  .cat:hover { transform: translateY(-4px); }
+  .cat-thumb { width: 110px; height: 110px; border-radius: 50%; overflow: hidden; margin: 0 auto 12px; background: #d6cab4; }
+  .cat-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .cat-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); }
+
+  /* FOOTER */
+  footer { max-width: var(--max); margin: 80px auto 40px; padding: 30px 48px 0; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+
+  /* MOBILE */
+  @media (max-width: 820px) {
+    .site-header { padding: 20px 20px 0; }
+    .logo img { height: 80px; margin-left: -18px; }
+    .header-rule { margin-top: 8px; }
+    nav.primary { padding: 12px 0 6px; }
+    nav.primary ul { flex-wrap: wrap; justify-content: center; gap: 14px 18px; }
+    nav.primary .dropdown { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 8px; background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; padding: 6px 0; min-width: 180px; flex-direction: column; gap: 0; opacity: 0; visibility: hidden; box-shadow: 0 10px 28px rgba(0,0,0,0.10); z-index: 100; transition: opacity 0.18s ease, visibility 0.18s ease; }
+    nav.primary .has-dropdown.open > .dropdown { opacity: 1; visibility: visible; }
+    nav.primary .dropdown a { padding: 10px 20px; opacity: 1; font-size: 10px; letter-spacing: 0.22em; }
+    nav.primary .has-dropdown::after { display: none; }
+    nav.primary .has-dropdown > a::after { display: inline; transition: transform 0.2s ease; }
+    nav.primary .has-dropdown.open > a::after { transform: rotate(180deg); display: inline-block; }
+
+    .m-hero { padding: 0 20px; margin: 16px auto 32px; }
+    .m-hero img { border-radius: var(--radius-md); aspect-ratio: 5 / 3; }
+    .m-title, .m-tagline, .m-copy, .m-section-title, .carousel { padding: 0 24px; }
+    .m-copy { font-size: 16px; }
+    .carousel-frame { padding: 12px; border-radius: 16px; }
+    .carousel-viewport { aspect-ratio: 4 / 3; border-radius: 10px; }
+    .carousel-arrow { opacity: 1; width: 28px; height: 28px; font-size: 14px; }
+    .carousel-arrow.prev { left: 6px; }
+    .carousel-arrow.next { right: 6px; }
+    .categories { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    footer { flex-direction: column; gap: 14px; text-align: center; padding: 30px 24px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="logo" aria-label="Mike Litter Ocean Craft — home">
+    <img src="images/logo.jpg" alt="Mike Litter Ocean Craft" />
+  </a>
+  <hr class="header-rule" />
+  <nav class="primary" aria-label="Primary">
+    <ul>
+      <li><a href="about.html">ABOUT</a></li>
+      <li><a href="people.html">PEOPLE</a></li>
+      <li><a href="workshop.html">WORKSHOP</a></li>
+      <li class="has-dropdown">
+        <a href="ocean-craft.html">OCEAN CRAFT</a>
+        <ul class="dropdown" aria-label="Ocean Craft sections">
+          <li><a href="paddles.html">PADDLES</a></li>
+          <li><a href="body-surfing.html">BODY SURFING</a></li>
+          <li><a href="innovations.html">INNOVATIONS</a></li>
+          <li><a href="surfboards.html">SURFBOARDS</a></li>
+          <li><a href="canoes.html">CANOES</a></li>
+        </ul>
+      </li>
+      <li><a href="events.html">EVENTS</a></li>
+      <li><a href="materials.html" class="active">MATERIALS</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="m-hero">
+  <img src="images/materials-hero.jpg" alt="Stacked wood timbers in the workshop" />
+</section>
+
+<section class="m-title">
+  <h1>MATERIALS</h1>
+</section>
+
+<div class="m-tagline">The good stuff.</div>
+
+<section class="m-copy">
+  <p>We are so accustomed to things constructed from man-made super materials that we rarely question if these toxic materials are truly necessary, and we also assume products made from natural materials are inferior. But for things with few moving parts and a simple mandate&mdash;like paddles, handplanes and surfboards&mdash;why not reconsider wood as the ideal material?</p>
+  <p>I have a garage full of carbon fiber canoes and foam surfboards. So I'm not a purist. But it stinks to feel passionate about our beloved oceans while at the same time using gear with dubious environmental credentials.</p>
+  <p>Also, I am smitten with trees. So it makes me happy to know about these enormous, living organisms that provide us such long-lasting material to work with. When we lock up that tree's inhaled carbon in a paddle, handplane or surfboard, we further extend wood's carbon storage lifespan.</p>
+  <p>I use a number of evergreen timbers from the West Coast: Sitka Spruce for its stiffness and superior strength to weight ratio, Douglas Fir for its toughness and flex, Western Red Cedar for its dark tones and light weight, and redwood (always reclaimed) for its beauty and ancient soul. Whenever possible I go for reclaimed wood, trees from second generation forests or plantation grown timbers. Old growth trees of these four species can be over a thousand years old and totally irreplaceable.</p>
+  <p>I also use North American hardwoods sparingly due to their heavier weight. Cherry is my favorite for handles and edgebanding. It is one of the most sustainable U.S. hardwoods due to its relatively fast rate of growth and strict forest management.</p>
+  <p>The MVP of the highly functional wooden ocean craft, however, is Paulownia, which I source from the Southern U.S. and from China. Paulownia is slightly heavier than Balsa but much stronger and more suitable for wet environments. I use it for the paddle blades and non load-bearing laminates in the paddle shafts. Paulownia is also fast growing and sustainably harvested in plantations where it absorbs carbon at high rates, giving it the distinction of being a carbon sink powerhouse.</p>
+</section>
+
+<section class="carousel" aria-label="Materials gallery">
+  <div class="carousel-frame">
+    <button class="carousel-arrow prev" aria-label="Previous">&#10094;</button>
+    <button class="carousel-arrow next" aria-label="Next">&#10095;</button>
+    <div class="carousel-viewport">
+      <div class="carousel-track">
+        <div class="carousel-slide"><div class="placeholder-note">Materials photo goes here</div></div>
+      </div>
+    </div>
+    <div class="carousel-dots"><button class="carousel-dot active" aria-label="Slide 1"></button></div>
+  </div>
+</section>
+
+<section class="m-section-title">
+  <h2>TOOLS</h2>
+</section>
+
+<div class="m-tagline">Great tools make&hellip; great tools.</div>
+
+<section class="m-copy">
+  <p>The more peaceful the build process, the more well-behaved the paddle, plane or board. Ocean craft are much like people in this way. I use a selection of traditional hand tools&mdash;spoke shaves, palm planes, travishers, coopers planes&mdash;borrowed from cask, chair and violin makers. The quiet work of hand planing and carving is so much sweeter than the ear splitting thrum of a power tool. When the work is scaled down, slow and quiet, the builder can tune into the wood's unique characteristics and limitations. This is what allows for an exquisite result.</p>
+</section>
+
+<section class="carousel" aria-label="Tools gallery">
+  <div class="carousel-frame">
+    <button class="carousel-arrow prev" aria-label="Previous">&#10094;</button>
+    <button class="carousel-arrow next" aria-label="Next">&#10095;</button>
+    <div class="carousel-viewport">
+      <div class="carousel-track">
+        <div class="carousel-slide"><div class="placeholder-note">Tools photo goes here</div></div>
+      </div>
+    </div>
+    <div class="carousel-dots"><button class="carousel-dot active" aria-label="Slide 1"></button></div>
+  </div>
+</section>
+
+<section class="categories" aria-label="Explore">
+  <a class="cat" href="ocean-craft.html"><div class="cat-thumb"><img src="images/cat-ocean-craft.jpg" alt="" /></div><div class="cat-label">Ocean Craft</div></a>
+  <a class="cat" href="workshop.html"><div class="cat-thumb"><img src="images/cat-workshop.jpg" alt="" /></div><div class="cat-label">Workshop</div></a>
+  <a class="cat" href="materials.html"><div class="cat-thumb"><img src="images/cat-materials.jpg" alt="" /></div><div class="cat-label">Materials</div></a>
+  <a class="cat" href="people.html"><div class="cat-thumb"><img src="images/cat-people.jpg" alt="" /></div><div class="cat-label">People</div></a>
+  <a class="cat" href="events.html"><div class="cat-thumb"><img src="images/cat-events.jpg" alt="" /></div><div class="cat-label">Events</div></a>
+</section>
+
+<footer>
+  <div>&copy; <span id="year"></span> MIKE LITTER OCEAN CRAFT</div>
+  <div>SAN FRANCISCO, CA</div>
+</footer>
+
+<div class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lightbox-close" aria-label="Close">&times;</button>
+  <button class="lightbox-arrow prev" aria-label="Previous image">&#10094;</button>
+  <button class="lightbox-arrow next" aria-label="Next image">&#10095;</button>
+  <img src="" alt="" />
+  <div class="lightbox-counter"><span class="lb-current">1</span> / <span class="lb-total">1</span></div>
+</div>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+<script>
+// Per-section carousel behavior (each .carousel-frame is independent)
+document.querySelectorAll('.carousel-frame').forEach(frame => {
+  const track = frame.querySelector('.carousel-track');
+  const slides = frame.querySelectorAll('.carousel-slide');
+  const dots = frame.querySelectorAll('.carousel-dot');
+  const prev = frame.querySelector('.carousel-arrow.prev');
+  const next = frame.querySelector('.carousel-arrow.next');
+  if (!track || slides.length < 2) return;
+  let idx = 0;
+  function goTo(i) {
+    idx = (i + slides.length) % slides.length;
+    track.style.transform = `translateX(${-100 * idx}%)`;
+    dots.forEach((d, di) => d.classList.toggle('active', di === idx));
+  }
+  if (prev) prev.addEventListener('click', () => goTo(idx - 1));
+  if (next) next.addEventListener('click', () => goTo(idx + 1));
+  dots.forEach((d, di) => d.addEventListener('click', () => goTo(di)));
+});
+</script>
+
+<script>
+// Lightbox for any carousel image
+(function() {
+  const box = document.querySelector('.lightbox');
+  if (!box) return;
+  const img = box.querySelector('img');
+  const closeBtn = box.querySelector('.lightbox-close');
+  const prevBtn = box.querySelector('.lightbox-arrow.prev');
+  const nextBtn = box.querySelector('.lightbox-arrow.next');
+  const cur = box.querySelector('.lb-current');
+  const total = box.querySelector('.lb-total');
+  const slides = Array.from(document.querySelectorAll('.carousel-slide img'));
+  if (!slides.length) return;
+  let idx = 0;
+  total.textContent = slides.length;
+  function open(i) { idx = i; img.src = slides[idx].src; img.alt = slides[idx].alt || ''; cur.textContent = idx + 1; box.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function close() { box.classList.remove('open'); document.body.style.overflow = ''; }
+  function go(delta) { idx = (idx + delta + slides.length) % slides.length; img.src = slides[idx].src; img.alt = slides[idx].alt || ''; cur.textContent = idx + 1; }
+  slides.forEach((el, i) => el.addEventListener('click', () => open(i)));
+  closeBtn.addEventListener('click', close);
+  prevBtn.addEventListener('click', () => go(-1));
+  nextBtn.addEventListener('click', () => go(1));
+  box.addEventListener('click', e => { if (e.target === box) close(); });
+  document.addEventListener('keydown', e => {
+    if (!box.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') go(-1);
+    if (e.key === 'ArrowRight') go(1);
+  });
+})();
+</script>
+
+<script>
+// Mobile dropdown toggle
+(function() {
+  const parent = document.querySelector('nav.primary .has-dropdown');
+  if (!parent) return;
+  const link = parent.querySelector(':scope > a');
+  link.addEventListener('click', function(e) {
+    if (window.innerWidth <= 820) { e.preventDefault(); parent.classList.toggle('open'); }
+  });
+  document.addEventListener('click', function(e) {
+    if (!parent.contains(e.target) && parent.classList.contains('open')) parent.classList.remove('open');
+  });
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 820) parent.classList.remove('open');
+  });
+})();
+</script>
+
+</body>
+</html>
